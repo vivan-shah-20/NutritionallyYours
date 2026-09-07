@@ -82,6 +82,9 @@ function loadSingleFrame(index, callback) {
   img.onload = () => {
     images[index - 1] = img;
     loadedCount++;
+    if (index === 1 || Math.round(currentFrame) === index) {
+      renderFrame(currentFrame);
+    }
     if (callback) callback();
   };
   img.onerror = () => {
@@ -244,12 +247,18 @@ function updateScrollTarget() {
   }
 }
 
+let initialRenderComplete = false;
+
 // Silky smooth LERP render loop
 function animationLoop() {
   const diff = targetFrame - currentFrame;
 
   if (Math.abs(diff) > 0.005) {
     currentFrame += diff * 0.15; // Smooth inertia
+    renderFrame(currentFrame);
+    updateCaptions(currentFrame);
+  } else if (!initialRenderComplete && images[0] && images[0].complete && images[0].naturalWidth > 0) {
+    initialRenderComplete = true;
     renderFrame(currentFrame);
     updateCaptions(currentFrame);
   }
