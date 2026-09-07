@@ -858,7 +858,16 @@ if (confirmationModal) {
 
 // Global Event Listeners
 window.addEventListener('scroll', updateScrollTarget, { passive: true });
-window.addEventListener('resize', resizeCanvas);
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  updateScrollTarget();
+});
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    resizeCanvas();
+    updateScrollTarget();
+  }, 150);
+});
 
 // Initialize
 setupDatePicker();
