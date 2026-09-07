@@ -52,9 +52,13 @@ app.use((req, res) => {
 // Central Error Handler
 app.use(errorHandler);
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`🌿 Nutritionally Yours Backend running on port ${PORT}`);
-  console.log(`🔗 API Base: http://localhost:${PORT}/api`);
-  console.log(`📡 Supabase Endpoint: ${process.env.SUPABASE_URL}`);
-});
+// Start Server (only listen if not running in serverless / Vercel environment)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🌿 Nutritionally Yours Backend running on port ${PORT}`);
+    console.log(`🔗 API Base: http://localhost:${PORT}/api`);
+    console.log(`📡 Supabase Endpoint: ${process.env.SUPABASE_URL}`);
+  });
+}
+
+export default app;
