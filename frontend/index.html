@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutritionally Yours by Janhavi Shah — Clinical Nutritionist</title>
+    <meta name="description" content="Private virtual clinical nutrition and metabolic health consultations with Janhavi Shah. Science-backed, holistic dietary care tailored to your biology." />
+    
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Luxury Preloader -->
+    <div id="preloader" class="preloader">
+      <div class="preloader-content">
+        <h1 class="preloader-brand">Nutritionally Yours</h1>
+        <p class="preloader-author">by Janhavi Shah</p>
+        <div class="preloader-divider"></div>
+        <p class="preloader-status" id="preloader-status">Preparing clinical experience...</p>
+        <div class="preloader-track">
+          <div id="preloader-bar" class="preloader-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fixed Luxury Top Panel Navigation -->
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="#hero" class="brand-group">
+          <span class="brand-title">Nutritionally Yours</span>
+          <span class="brand-sub">by Janhavi Shah</span>
+        </a>
+
+        <!-- Top panel actions: Authentication & Consultation -->
+        <div class="nav-actions">
+          <button type="button" class="btn-login-nav" id="navLoginBtn">
+            <svg class="nav-auth-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Sign In</span>
+          </button>
+
+          <!-- User profile pill when authenticated -->
+          <div class="user-profile-pill hidden" id="navUserPill">
+            <img class="user-avatar" id="navUserAvatar" src="" alt="User profile" style="display: none;" />
+            <span class="user-avatar-placeholder" id="navUserInitial">U</span>
+            <span class="user-name" id="navUserName">Client</span>
+            <button type="button" class="btn-logout" id="navLogoutBtn" title="Sign Out">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+
+          <a href="#consultation" class="btn-consultation">
+            <span>Book Consultation</span>
+            <span class="arrow-gold">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Scroll Section: High-Clarity Bowl Animation -->
+      <section class="scroll-showcase" id="hero">
+        <div class="canvas-sticky-wrap">
+          <canvas id="animation-canvas"></canvas>
+
+          <!-- Minimalist Luxury Text (No Box, Alternate Flanks) -->
+          <!-- Caption 1: Left Flank -->
+          <div class="editorial-overlay active" id="caption-1">
+            <div class="caption-text left">
+              <span class="tag-gold">Clinical Nutrition</span>
+              <h1 class="hero-title">
+                Precision Nutrition.<br />
+                <em>Tailored to your biology.</em>
+              </h1>
+              <p class="hero-subtitle">
+                Restoring metabolic equilibrium and cellular vitality.
+              </p>
+              <div class="scroll-prompt">
+                <span class="scroll-text">Scroll to explore</span>
+                <div class="scroll-line"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caption 2: Right Flank -->
+          <div class="editorial-overlay" id="caption-2">
+            <div class="caption-text right">
+              <span class="tag-gold">Functional Medicine</span>
+              <h2 class="hero-title medium">
+                Food as Medicine.<br />
+                <em>Targeted at the root.</em>
+              </h2>
+              <p class="hero-subtitle">
+                Targeted clinical care guided by your unique biomarker profile.
+              </p>
+            </div>
+          </div>
+
+          <!-- Caption 3: Left Flank -->
+          <div class="editorial-overlay" id="caption-3">
+            <div class="caption-text left">
+              <span class="tag-gold">Janhavi Shah</span>
+              <h2 class="hero-title medium">
+                Bespoke Protocols.<br />
+                <em>Zero generic diets.</em>
+              </h2>
+              <p class="hero-subtitle">
+                Individualized clinical therapy designed for lasting health.
+              </p>
+              <a href="#consultation" class="btn-editorial">
+                Book Consultation &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editorial Philosophy Statement -->
+      <section class="section-manifesto">
+        <div class="manifesto-container">
+          <span class="tag-gold">The Philosophy</span>
+          <h2 class="manifesto-quote">
+            “When we nourish the cell with biological precision, the body’s innate capacity for vitality, balance, and longevity awakens.”
+          </h2>
+          <div class="manifesto-author">
+            <strong>Janhavi Shah</strong>
+            <span>Clinical Nutritionist & Functional Dietitian</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Private Virtual Consultation Section -->
+      <section class="section-consultation" id="consultation">
+        <div class="consultation-wrapper">
+          <div class="consultation-header">
+            <div class="virtual-pill">
+              <span class="pulse-dot"></span>
+              <span>100% Virtual Telehealth Consultation</span>
+            </div>
+            <h2 class="section-title">Schedule Your Private Consultation</h2>
+            <p class="section-desc">
+              Comprehensive 1-on-1 virtual clinical assessment with Janhavi Shah. Please provide your health metrics and primary focus areas below.
+            </p>
+          </div>
+
+          <!-- Booking Form -->
+          <form class="consultation-form" id="consultation-form">
+            <!-- Part 1: Personal & Physical Metrics -->
+            <div class="form-card">
+              <h3 class="form-card-title">
+                <span class="num-step">01</span> Personal & Physical Profile
+              </h3>
+              
+              <div class="form-grid-2">
+                <div class="input-group">
+                  <label for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" name="fullName" placeholder="e.g. Alistair Vance" required />
+                </div>
+
+                <div class="input-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" placeholder="e.g. yourname@gmail.com" required />
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="input-group">
+                  <label for="phone">Phone / WhatsApp Number *</label>
+                  <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required />
+                </div>
+
+                <div class="input-group">
+                  <label for="age">Age *</label>
+                  <input type="number" id="age" name="age" min="16" max="105" placeholder="e.g. 32" required />
+                </div>
+              </div>
+
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label for="height">Height *</label>
+                  <input type="text" id="height" name="height" placeholder="e.g. 175 cm or 5'9&quot;" required />
+                </div>
+
+                <div class="input-group">
+                  <label for="weight">Current Weight *</label>
+                  <input type="text" id="weight" name="weight" placeholder="e.g. 68 kg or 150 lbs" required />
+                </div>
+
+                <div class="input-group">
+                  <label for="gender">Gender *</label>
+                  <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-Binary">Non-Binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Part 2: Primary Clinical Goals -->
+            <div class="form-card">
+              <h3 class="form-card-title">
+                <span class="num-step">02</span> Primary Clinical Goals
+              </h3>
+              <p class="form-card-desc">Please share your personal health goals and what you hope to achieve through our clinical dietary consultation:</p>
+              
+              <div class="input-group">
+                <label for="userGoal">What is your primary goal to achieve with us? *</label>
+                <textarea 
+                  id="userGoal" 
+                  name="userGoal" 
+                  rows="4" 
+                  placeholder="e.g. My goal is to balance hormonal fluctuations, heal chronic gut bloating and fatigue, and establish an evidence-based metabolic dietary protocol that fits my busy schedule..." 
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Part 3: Medical History & Dietary Habits -->
+            <div class="form-card">
+              <h3 class="form-card-title">
+                <span class="num-step">03</span> Medical History & Dietary Preferences
+              </h3>
+
+              <div class="input-group">
+                <label for="medicalHistory">Known Medical Diagnoses, Medications, or Allergies</label>
+                <textarea id="medicalHistory" name="medicalHistory" rows="3" placeholder="e.g. Hypothyroidism, Dairy intolerance, Taking Levothyroxine, etc."></textarea>
+              </div>
+
+              <div class="input-group">
+                <label for="dietaryPattern">Current Dietary Pattern</label>
+                <input type="text" id="dietaryPattern" name="dietaryPattern" placeholder="e.g. Vegetarian, Plant-Forward, Mediterranean, Omnivore, Intermittent Fasting" />
+              </div>
+            </div>
+
+            <!-- Part 4: Virtual Appointment Date & Time -->
+            <div class="form-card slot-card-large">
+              <h3 class="form-card-title">
+                <span class="num-step">04</span> Preferred Virtual Slot
+              </h3>
+              <p class="form-card-desc">All sessions are conducted virtually via private encrypted HD video link.</p>
+
+              <div class="slot-date-picker-wrap">
+                <div class="input-group">
+                  <label for="consultDate">Preferred Date *</label>
+                  <input type="date" id="consultDate" name="consultDate" required />
+                </div>
+              </div>
+
+              <div class="slot-picker-container">
+                <label class="slot-section-heading">Select Consultation Window *</label>
+                
+                <!-- Expansive Interactive Slot Cards -->
+                <div class="slot-cards-grid" id="slotCardsGrid">
+                  <button type="button" class="slot-select-card" data-slot="Morning (10:00 AM - 11:00 AM)">
+                    <div class="slot-card-header">
+                      <span class="slot-period-tag">Morning Window</span>
+                      <span class="slot-badge-status available">Available</span>
+                    </div>
+                    <div class="slot-time-range">10:00 AM – 11:00 AM</div>
+                    <div class="slot-format-note">1-on-1 Virtual Consultation</div>
+                  </button>
+
+                  <button type="button" class="slot-select-card" data-slot="Midday (01:00 PM - 02:00 PM)">
+                    <div class="slot-card-header">
+                      <span class="slot-period-tag">Midday Window</span>
+                      <span class="slot-badge-status available">Available</span>
+                    </div>
+                    <div class="slot-time-range">01:00 PM – 02:00 PM</div>
+                    <div class="slot-format-note">1-on-1 Virtual Consultation</div>
+                  </button>
+
+                  <button type="button" class="slot-select-card" data-slot="Afternoon (03:30 PM - 04:30 PM)">
+                    <div class="slot-card-header">
+                      <span class="slot-period-tag">Afternoon Window</span>
+                      <span class="slot-badge-status available">Available</span>
+                    </div>
+                    <div class="slot-time-range">03:30 PM – 04:30 PM</div>
+                    <div class="slot-format-note">1-on-1 Virtual Consultation</div>
+                  </button>
+
+                  <button type="button" class="slot-select-card" data-slot="Evening (05:30 PM - 06:30 PM)">
+                    <div class="slot-card-header">
+                      <span class="slot-period-tag">Evening Window</span>
+                      <span class="slot-badge-status available">Available</span>
+                    </div>
+                    <div class="slot-time-range">05:30 PM – 06:30 PM</div>
+                    <div class="slot-format-note">1-on-1 Virtual Consultation</div>
+                  </button>
+                </div>
+
+                <!-- Form sync select input -->
+                <select id="timeSlot" name="timeSlot" required class="visually-hidden-select">
+                  <option value="" disabled selected>Choose time slot</option>
+                  <option value="Morning (10:00 AM - 11:00 AM)">Morning (10:00 AM - 11:00 AM)</option>
+                  <option value="Midday (01:00 PM - 02:00 PM)">Midday (01:00 PM - 02:00 PM)</option>
+                  <option value="Afternoon (03:30 PM - 04:30 PM)">Afternoon (03:30 PM - 04:30 PM)</option>
+                  <option value="Evening (05:30 PM - 06:30 PM)">Evening (05:30 PM - 06:30 PM)</option>
+                </select>
+                <div class="slot-availability-hint hidden" id="slotAvailabilityHint"></div>
+              </div>
+            </div>
+
+              <div class="submit-wrap">
+                <button type="submit" class="btn-submit-consultation" id="submitBtn">
+                  <span>Confirm Virtual Consultation</span>
+                  <span class="submit-arrow">&rarr;</span>
+                </button>
+                <p class="submit-guarantee">
+                  Complete confidentiality. Encrypted telehealth link and preparation guide will be emailed immediately.
+                </p>
+              </div>
+            </div>
+          </form>
+
+          <!-- Appointment Confirmation Modal Receipt -->
+          <div class="modal-backdrop" id="confirmationModal">
+            <div class="confirmation-card">
+              <div class="receipt-header">
+                <span class="receipt-badge">Virtual Telehealth Confirmed</span>
+                <h2>Consultation Reserved</h2>
+                <p>with <strong>Janhavi Shah</strong>, Clinical Nutritionist</p>
+              </div>
+
+              <div class="receipt-divider"></div>
+
+              <div class="receipt-details">
+                <div class="receipt-row">
+                  <span>Patient</span>
+                  <strong id="recName">-</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Physical Metrics</span>
+                  <strong id="recMetrics">-</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Clinical Focus</span>
+                  <strong id="recGoals">-</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Date & Window</span>
+                  <strong id="recDate">-</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Format</span>
+                  <strong>1-on-1 Private HD Video Session</strong>
+                </div>
+              </div>
+
+              <div class="receipt-instructions">
+                <p>A calendar invitation and health intake questionnaire have been dispatched to your email.</p>
+              </div>
+
+              <button class="btn-close-receipt" id="closeReceiptBtn">
+                Done
+              </button>
+            </div>
+          </div>
+
+          <!-- Luxury Client Authentication Modal -->
+          <div class="modal-backdrop" id="authModal">
+            <div class="auth-card">
+              <button type="button" class="modal-close-icon" id="closeAuthModalBtn" aria-label="Close modal">&times;</button>
+              
+              <div class="auth-header">
+                <span class="receipt-badge">Client Portal</span>
+                <h2 id="authModalTitle">Sign In</h2>
+                <p id="authModalSubtitle">Access your private clinical assessments and personalized dietary protocols.</p>
+              </div>
+
+              <!-- Auth Mode Switcher Tabs -->
+              <div class="auth-tabs">
+                <button type="button" class="auth-tab active" id="tabSignIn">Sign In</button>
+                <button type="button" class="auth-tab" id="tabSignUp">Create Account</button>
+              </div>
+
+              <div class="auth-body">
+                <!-- Manual Email/Password Form -->
+                <form id="emailAuthForm" class="email-auth-form">
+                  <!-- Full Name field (only visible in Sign Up mode) -->
+                  <div class="input-group hidden" id="signupNameGroup">
+                    <label for="authFullName">Full Name *</label>
+                    <input type="text" id="authFullName" placeholder="e.g. Alistair Vance" autocomplete="name" />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="authEmail">Email Address *</label>
+                    <input type="email" id="authEmail" placeholder="yourname@gmail.com" required autocomplete="email" />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="authPassword">Password *</label>
+                    <div class="password-input-wrap">
+                      <input type="password" id="authPassword" placeholder="••••••••" required minlength="6" autocomplete="current-password" />
+                      <button type="button" class="btn-password-toggle" id="togglePasswordBtn" aria-label="Show password" title="Show/Hide Password">
+                        <!-- Eye icon (shown when password is hidden) -->
+                        <svg class="eye-icon eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <!-- Eye-off icon (shown when password is visible) -->
+                        <svg class="eye-icon eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                          <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Feedback Alert Box -->
+                  <div class="auth-message-box hidden" id="authMessageBox"></div>
+
+                  <button type="submit" class="btn-auth-submit" id="authSubmitBtn">
+                    <span id="authSubmitText">Sign In</span>
+                  </button>
+                </form>
+
+                <p class="auth-notice" id="authNotice">
+                  Protected by Supabase enterprise encryption. Your personal health credentials remain completely private.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Luxury Minimalist Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand-box">
+          <span class="footer-title">Nutritionally Yours</span>
+          <span class="footer-sub">by Janhavi Shah</span>
+          <p class="footer-motto">Evidence-based clinical nutrition, restorative functional dietary protocols, and metabolic empowerment.</p>
+        </div>
+
+        <div class="footer-meta">
+          <div class="footer-col">
+            <h4>Practice</h4>
+            <p>100% Virtual Telehealth Consultations</p>
+            <p>Direct Inquiries: <a href="mailto:Nutritionally.yourss@gmail.com" style="color: inherit; text-decoration: underline;">Nutritionally.yourss@gmail.com</a></p>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <p>Personalized Nutrition Plans</p>
+            <p>Holistic Health & Wellness Guidance</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2026 Nutritionally Yours by Janhavi Shah. All rights reserved.
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
