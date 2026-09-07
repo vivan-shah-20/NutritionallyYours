@@ -1596,6 +1596,44 @@ body {
     letter-spacing: 0.4px;
   }
 
+  /* Mobile Hero Captions: Position above and below the bowl (uncluttered) */
+  .editorial-overlay {
+    padding: 0 16px;
+    justify-content: center;
+  }
+
+  /* Caption 1: Positioned ABOVE the bowl */
+  #caption-1.editorial-overlay {
+    align-items: flex-start;
+    padding-top: calc(85px + env(safe-area-inset-top));
+    padding-bottom: 0;
+  }
+
+  /* Caption 2: Positioned BELOW the bowl */
+  #caption-2.editorial-overlay {
+    align-items: flex-end;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom));
+    padding-top: 0;
+  }
+
+  /* Caption 3: Positioned ABOVE the bowl */
+  #caption-3.editorial-overlay {
+    align-items: flex-start;
+    padding-top: calc(85px + env(safe-area-inset-top));
+    padding-bottom: 0;
+  }
+
+  .caption-text {
+    max-width: min(92vw, 420px);
+    width: 100%;
+  }
+
+  .caption-text.left,
+  .caption-text.right {
+    margin: 0 auto;
+    text-align: center;
+  }
+
   .tag-gold {
     font-size: 0.68rem;
     letter-spacing: 1.6px;
@@ -1606,7 +1644,7 @@ body {
     font-size: clamp(1.85rem, 6vw, 2.4rem);
     line-height: 1.12;
     letter-spacing: -0.3px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .hero-title.medium {
@@ -1614,14 +1652,25 @@ body {
   }
 
   .hero-subtitle {
-    font-size: 0.92rem;
-    line-height: 1.5;
-    margin-bottom: 14px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin: 0 auto 12px;
+    max-width: 320px;
+  }
+
+  .scroll-prompt {
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .scroll-prompt .scroll-line {
+    max-width: 40px;
   }
 
   .btn-editorial {
     padding: 10px 22px;
     font-size: 0.8rem;
+    margin: 0 auto;
   }
 
   /* Manifesto Section */
@@ -1901,6 +1950,15 @@ body {
     font-size: 0.8rem;
   }
 
+  #caption-1.editorial-overlay,
+  #caption-3.editorial-overlay {
+    padding-top: calc(75px + env(safe-area-inset-top));
+  }
+
+  #caption-2.editorial-overlay {
+    padding-bottom: calc(38px + env(safe-area-inset-bottom));
+  }
+
   .hero-title {
     font-size: clamp(1.6rem, 6.8vw, 2.05rem);
     line-height: 1.1;
@@ -1988,6 +2046,15 @@ body {
   .btn-consultation {
     padding: 6px 9px;
     font-size: 0.68rem;
+  }
+
+  #caption-1.editorial-overlay,
+  #caption-3.editorial-overlay {
+    padding-top: calc(66px + env(safe-area-inset-top));
+  }
+
+  #caption-2.editorial-overlay {
+    padding-bottom: calc(26px + env(safe-area-inset-bottom));
   }
 
   .hero-title {
