@@ -223,7 +223,19 @@ function renderFrame(frameIndex) {
   offsetX = (viewWidth - drawWidth) / 2;
   offsetY = (viewHeight - drawHeight) / 2;
 
-  ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+  // Cleanly clip 6px video encoding edge artifact from top & bottom of source frame
+  const cropY = 6;
+  ctx.drawImage(
+    img,
+    0,
+    cropY,
+    img.naturalWidth,
+    img.naturalHeight - cropY * 2,
+    offsetX,
+    offsetY,
+    drawWidth,
+    drawHeight
+  );
 }
 
 // Scroll position calculation: maps 1 -> 240 strictly once, no looping
@@ -244,6 +256,21 @@ function updateScrollTarget() {
     targetFrame = 1;
   } else {
     targetFrame = 1 + progress * (TOTAL_FRAMES - 1);
+  }
+
+  // Keep top navbar pinned on mobile throughout animation, exiting with the hero section
+  const navbarEl = document.getElementById('navbar');
+  if (navbarEl) {
+    if (window.innerWidth <= 768) {
+      if (rect.bottom < window.innerHeight) {
+        const offset = rect.bottom - window.innerHeight;
+        navbarEl.style.transform = `translateY(${offset}px)`;
+      } else {
+        navbarEl.style.transform = 'translateY(0)';
+      }
+    } else if (navbarEl.style.transform) {
+      navbarEl.style.transform = '';
+    }
   }
 }
 
@@ -490,8 +517,11 @@ function handleAuthState(session) {
 }
 
 // Supabase Auth Listeners: Real-time sync and auto-restoration on load
-supabase.auth.onAuthStateChange((_event, session) => {
+supabase.auth.onAuthStateChange((event, session) => {
   handleAuthState(session);
+  if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('type='))) {
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
 });
 
 // Snappy session check on initial load

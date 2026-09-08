@@ -66,6 +66,7 @@ body {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  display: none;
 }
 
 .preloader-content {
@@ -169,6 +170,10 @@ body {
   letter-spacing: -0.4px;
   color: var(--color-primary);
   line-height: 1.1;
+}
+
+.brand-title-break {
+  display: inline;
 }
 
 .brand-sub {
@@ -343,6 +348,16 @@ body {
   height: 100%;
   display: block;
   pointer-events: none;
+}
+
+/* Mobile Hero Header - Hidden on Desktop */
+.mobile-hero-header {
+  display: none;
+}
+
+.caption-top-block,
+.caption-bottom-block {
+  display: block;
 }
 
 /* ==================== EDITORIAL CAPTIONS (PURE LUXURY TEXT, NO BOX) ==================== */
@@ -1543,88 +1558,276 @@ body {
    MOBILE & TABLET PORTRAIT (<= 768px)
    ---------------------------------------------------- */
 @media (max-width: 768px) {
-  /* Navbar & Safe Area */
+  /* Warm Luxury Editorial Background */
+  html, body {
+    background-color: #F7F4ED;
+  }
+
+  .scroll-showcase {
+    background-color: #F7F4ED;
+  }
+
+  .canvas-sticky-wrap {
+    background-color: #F7F4ED;
+  }
+
+  /* Soft Luxury Radial Glow behind Salad Bowl */
+  .canvas-sticky-wrap::before {
+    content: '';
+    position: absolute;
+    width: min(88vw, 360px);
+    height: min(88vw, 360px);
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(235, 226, 208, 0.65) 0%, rgba(247, 244, 237, 0) 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Blend Salad Frame Seamlessly into Ivory Background & Erase Encoding Edge Artifact */
+  #animation-canvas {
+    mix-blend-mode: multiply;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 1.8%, black 98.2%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 1.8%, black 98.2%, transparent 100%);
+    z-index: 2;
+  }
+
+  /* Luxury Header on Mobile: Pinned at top throughout animation, exits with hero runway */
   .navbar {
-    top: max(12px, env(safe-area-inset-top));
-    padding: 0 14px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: max(10px, env(safe-area-inset-top)) clamp(10px, 3.5vw, 16px) 0;
+    pointer-events: auto;
+    will-change: transform;
+    transition: transform 0.15s ease-out;
   }
 
   .nav-container {
-    padding: 10px 16px;
-    border-radius: var(--radius-full);
+    height: 72px;
+    padding: 8px clamp(10px, 3vw, 14px);
+    background: #FAF8F3;
+    border: 1px solid #DED6C8;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(16, 38, 28, 0.04), 0 1px 3px rgba(16, 38, 28, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  /* Editorial Wordmark Positioning (2-line title + subtitle) */
+  .brand-group {
+    flex: 0 0 auto;
+    width: min-content;
+    max-width: 96px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .brand-title {
-    font-size: 1.25rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.0rem, 3.2vw, 1.12rem);
+    font-weight: 600;
+    color: #10261C;
+    line-height: 1.0;
+    letter-spacing: -0.2px;
+    display: block;
+    word-break: normal;
+  }
+
+  .brand-title-break {
+    display: block;
   }
 
   .brand-sub {
-    font-size: 0.8rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.68rem;
+    color: #A88A5A;
+    letter-spacing: 0.2px;
+    margin-top: 2px;
+    white-space: nowrap;
+    display: block;
   }
 
   .nav-actions {
-    gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 auto;
+    justify-content: flex-end;
   }
 
+  /* Refined Luxury Sign In Button */
   .btn-login-nav {
-    padding: 7px 14px;
-    font-size: 0.8rem;
-    gap: 6px;
+    height: 42px;
+    padding: 0 10px;
+    background: #F7F4ED;
+    border: 1px solid #DED6C8;
+    border-radius: 12px;
+    color: #10261C;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(16, 38, 28, 0.03);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
   }
 
+  .btn-login-nav .nav-auth-icon {
+    width: 13px;
+    height: 13px;
+    color: #A88A5A;
+  }
+
+  .btn-login-nav:active {
+    transform: scale(0.97);
+    background: #EDE6DA;
+  }
+
+  /* User Profile Pill when Logged In */
   .user-profile-pill {
-    padding: 4px 10px 4px 6px;
-    gap: 6px;
+    height: 42px;
+    padding: 0 8px 0 5px;
+    background: #F7F4ED;
+    border: 1px solid #DED6C8;
+    border-radius: 12px;
+    gap: 5px;
   }
 
   .user-name {
-    max-width: 80px;
-    font-size: 0.78rem;
+    max-width: 65px;
+    font-size: 0.74rem;
+    color: #10261C;
   }
 
   .user-avatar,
   .user-avatar-placeholder {
     width: 24px;
     height: 24px;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
+  /* Primary CTA: Book Consultation Button */
   .btn-consultation {
-    padding: 8px 16px;
-    font-size: 0.78rem;
-    gap: 6px;
+    height: 44px;
+    padding: 0 12px;
+    background: #10261C;
+    color: #FAF8F4;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.69rem;
+    font-weight: 600;
     letter-spacing: 0.4px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    box-shadow: 0 3px 12px rgba(16, 38, 28, 0.14);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
   }
 
-  /* Mobile Hero Captions: Position above and below the bowl (uncluttered) */
+  .btn-consultation .arrow-gold {
+    color: #D4AF7A;
+    font-size: 0.78rem;
+    transition: transform 0.25s ease;
+  }
+
+  .btn-consultation:active {
+    transform: scale(0.97);
+    background: #0B1B13;
+  }
+
+  .btn-consultation:active .arrow-gold {
+    transform: translateX(3px);
+  }
+
+  /* Editorial Overlays / Captions */
+  /* Permanent Mobile Top Header: Anchored closely above the salad bowl */
+  .mobile-hero-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: max(calc(max(8px, env(safe-area-inset-top)) + 74px), calc(50vh - clamp(185px, 46vw, 205px)));
+    left: 0;
+    right: 0;
+    z-index: 25;
+    pointer-events: none;
+    padding: 0 16px;
+  }
+
+  .mobile-hero-header .tag-gold {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 2.2px;
+    color: #A88A5A;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .mobile-hero-header .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 6.4vw, 2.2rem);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+    color: #10261C;
+    margin-bottom: 2px;
+  }
+
+  .mobile-hero-header .hero-title em {
+    display: block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: #A88A5A;
+    font-size: clamp(1.5rem, 5.4vw, 1.9rem);
+    margin-top: 1px;
+  }
+
+  /* Hide duplicate top block inside Caption 1 on mobile */
+  .caption-top-block {
+    display: none;
+  }
+
+  /* All 3 editorial overlays on mobile sit closely BELOW the bowl */
   .editorial-overlay {
     padding: 0 16px;
     justify-content: center;
+    z-index: 20;
+    align-items: flex-start !important;
+    padding-top: calc(50vh + clamp(118px, 29vw, 132px)) !important;
+    padding-bottom: 0 !important;
   }
 
-  /* Caption 1: Positioned ABOVE the bowl */
-  #caption-1.editorial-overlay {
-    align-items: flex-start;
-    padding-top: calc(85px + env(safe-area-inset-top));
-    padding-bottom: 0;
-  }
-
-  /* Caption 2: Positioned BELOW the bowl */
-  #caption-2.editorial-overlay {
-    align-items: flex-end;
-    padding-bottom: calc(48px + env(safe-area-inset-bottom));
-    padding-top: 0;
-  }
-
-  /* Caption 3: Positioned ABOVE the bowl */
+  #caption-1.editorial-overlay,
+  #caption-2.editorial-overlay,
   #caption-3.editorial-overlay {
-    align-items: flex-start;
-    padding-top: calc(85px + env(safe-area-inset-top));
-    padding-bottom: 0;
+    align-items: flex-start !important;
+    padding-top: calc(50vh + clamp(118px, 29vw, 132px)) !important;
+    padding-bottom: 0 !important;
   }
 
   .caption-text {
-    max-width: min(92vw, 420px);
+    max-width: min(92vw, 340px);
     width: 100%;
   }
 
@@ -1634,48 +1837,137 @@ body {
     text-align: center;
   }
 
-  .tag-gold {
-    font-size: 0.68rem;
-    letter-spacing: 1.6px;
-    margin-bottom: 8px;
+  /* Category Tag in Bottom Overlays */
+  .editorial-overlay .tag-gold {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 2.2px;
+    color: #A88A5A;
+    margin-bottom: 4px;
+    text-transform: uppercase;
   }
 
-  .hero-title {
-    font-size: clamp(1.85rem, 6vw, 2.4rem);
-    line-height: 1.12;
+  /* Bottom Captions Titles */
+  .editorial-overlay .hero-title.medium {
+    font-family: var(--font-serif);
+    font-size: clamp(1.35rem, 4.8vw, 1.65rem);
+    line-height: 1.08;
     letter-spacing: -0.3px;
-    margin-bottom: 8px;
+    color: #10261C;
+    margin-bottom: 2px;
   }
 
-  .hero-title.medium {
-    font-size: clamp(1.7rem, 5.5vw, 2.2rem);
+  .editorial-overlay .hero-title.medium em {
+    display: block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: #A88A5A;
+    font-size: clamp(1.22rem, 4.2vw, 1.5rem);
+    margin-top: 1px;
   }
 
+  /* Bottom Subtitles */
   .hero-subtitle {
-    font-size: 0.9rem;
-    line-height: 1.45;
-    margin: 0 auto 12px;
-    max-width: 320px;
+    font-family: var(--font-sans);
+    font-size: clamp(0.82rem, 2.6vw, 0.88rem);
+    line-height: 1.42;
+    color: #59635D;
+    font-weight: 400;
+    margin: 6px auto 10px;
+    max-width: 290px;
   }
 
+  /* Scroll To Explore prompt */
   .scroll-prompt {
-    justify-content: center;
-    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+  }
+
+  .scroll-text {
+    font-size: 0.66rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #59635D;
+    font-weight: 600;
   }
 
   .scroll-prompt .scroll-line {
-    max-width: 40px;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, #A88A5A 0%, rgba(168, 138, 90, 0.12) 100%);
+    border-radius: 1px;
+  }
+
+  .btn-editorial {
+    padding: 8px 18px;
+    font-size: 0.74rem;
+    margin: 4px auto 0;
+    background: #10261C;
+    color: #FAF8F4;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 3px 12px rgba(16, 38, 28, 0.14);
+  }
+
+  /* Short Screen Optimization (e.g. iPhone SE 667px) */
+  @media (max-height: 720px) {
+    .mobile-hero-header {
+      top: calc(max(6px, env(safe-area-inset-top)) + 66px + 4px);
+    }
+
+    .mobile-hero-header .tag-gold {
+      margin-bottom: 2px;
+    }
+
+    .mobile-hero-header .hero-title {
+      font-size: 1.58rem;
+      line-height: 1.03;
+    }
+
+    .mobile-hero-header .hero-title em {
+      font-size: 1.38rem;
+    }
+
+    .editorial-overlay {
+      padding-bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+    }
+
+    .editorial-overlay .hero-title.medium {
+      font-size: 1.25rem;
+    }
+
+    .editorial-overlay .hero-title.medium em {
+      font-size: 1.15rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.76rem;
+      line-height: 1.35;
+      margin: 4px auto 6px;
+      max-width: 270px;
+    }
   }
 
   .btn-editorial {
     padding: 10px 22px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     margin: 0 auto;
+    background: #10261C;
+    color: #FAF8F4;
+    border-radius: 12px;
   }
 
-  /* Manifesto Section */
+  /* Soft Editorial Manifesto Transitions */
   .section-manifesto {
-    padding: 70px 20px;
+    background: #FAF8F3;
+    padding: clamp(64px, 12vh, 90px) 20px;
+    border-top: 1px solid rgba(222, 214, 200, 0.45);
+    border-bottom: 1px solid rgba(222, 214, 200, 0.45);
   }
 
   .manifesto-quote {
@@ -1908,69 +2200,81 @@ body {
    ---------------------------------------------------- */
 @media (max-width: 480px) {
   .navbar {
-    top: max(8px, env(safe-area-inset-top));
-    padding: 0 8px;
+    padding: max(10px, env(safe-area-inset-top)) 12px 0;
   }
 
   .nav-container {
-    padding: 8px 12px;
+    height: 70px;
+    padding: 8px 10px;
     gap: 6px;
+    border-radius: 18px;
+  }
+
+  .brand-group {
+    width: min-content;
+    max-width: 88px;
   }
 
   .brand-title {
-    font-size: 1.15rem;
+    font-size: 0.98rem;
+    line-height: 1.0;
   }
 
   .brand-sub {
-    font-size: 0.74rem;
+    font-size: 0.65rem;
   }
 
   .nav-actions {
-    gap: 6px;
+    gap: 5px;
   }
 
   .btn-login-nav {
-    padding: 6px 10px;
-    font-size: 0.74rem;
+    height: 42px;
+    padding: 0 9px;
+    font-size: 0.72rem;
     gap: 4px;
-  }
-
-  .btn-login-nav svg {
-    width: 14px;
-    height: 14px;
+    border-radius: 11px;
   }
 
   .btn-consultation {
-    padding: 6px 12px;
-    font-size: 0.72rem;
+    height: 42px;
+    padding: 0 10px;
+    font-size: 0.67rem;
     gap: 4px;
+    border-radius: 11px;
+    letter-spacing: 0.3px;
   }
 
   .btn-consultation .arrow-gold {
-    font-size: 0.8rem;
+    font-size: 0.74rem;
   }
 
   #caption-1.editorial-overlay,
   #caption-3.editorial-overlay {
-    padding-top: calc(75px + env(safe-area-inset-top));
+    padding-top: calc(max(10px, env(safe-area-inset-top)) + 70px + clamp(14px, 2.5vh, 22px));
   }
 
   #caption-2.editorial-overlay {
-    padding-bottom: calc(38px + env(safe-area-inset-bottom));
+    padding-bottom: calc(clamp(24px, 3.5vh, 36px) + env(safe-area-inset-bottom));
   }
 
   .hero-title {
-    font-size: clamp(1.6rem, 6.8vw, 2.05rem);
-    line-height: 1.1;
+    font-size: clamp(1.75rem, 7.2vw, 2.15rem);
+    line-height: 1.06;
+  }
+
+  .hero-title em {
+    font-size: clamp(1.5rem, 6.2vw, 1.85rem);
   }
 
   .hero-title.medium {
-    font-size: clamp(1.5rem, 6.2vw, 1.95rem);
+    font-size: clamp(1.58rem, 6.4vw, 1.95rem);
   }
 
   .hero-subtitle {
     font-size: 0.86rem;
     line-height: 1.45;
+    max-width: 275px;
   }
 
   .btn-editorial {
@@ -2023,16 +2327,28 @@ body {
    EXTRA-SMALL MOBILE SCREENS (<= 360px)
    ---------------------------------------------------- */
 @media (max-width: 360px) {
+  .navbar {
+    padding: max(8px, env(safe-area-inset-top)) 8px 0;
+  }
+
   .nav-container {
+    height: 64px;
     padding: 6px 10px;
+    gap: 4px;
+    border-radius: 18px;
+  }
+
+  .brand-group {
+    width: 35%;
+    max-width: 95px;
   }
 
   .brand-title {
-    font-size: 1.05rem;
+    font-size: 0.94rem;
   }
 
   .brand-sub {
-    font-size: 0.68rem;
+    font-size: 0.64rem;
   }
 
   .btn-login-nav span {
@@ -2040,29 +2356,41 @@ body {
   }
 
   .btn-login-nav {
-    padding: 6px 8px;
+    height: 38px;
+    padding: 0 7px;
+    font-size: 0.68rem;
+    gap: 3px;
+    border-radius: 10px;
   }
 
   .btn-consultation {
-    padding: 6px 9px;
-    font-size: 0.68rem;
+    height: 40px;
+    padding: 0 9px;
+    font-size: 0.66rem;
+    gap: 3px;
+    border-radius: 10px;
   }
 
   #caption-1.editorial-overlay,
   #caption-3.editorial-overlay {
-    padding-top: calc(66px + env(safe-area-inset-top));
+    padding-top: calc(max(8px, env(safe-area-inset-top)) + 64px + 12px);
   }
 
   #caption-2.editorial-overlay {
-    padding-bottom: calc(26px + env(safe-area-inset-bottom));
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
 
   .hero-title {
-    font-size: 1.5rem;
+    font-size: 1.58rem;
+  }
+
+  .hero-title em {
+    font-size: 1.38rem;
   }
 
   .hero-subtitle {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+    max-width: 250px;
   }
 
   .form-card,
