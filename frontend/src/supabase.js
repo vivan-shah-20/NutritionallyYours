@@ -31,6 +31,16 @@ export async function checkUserExists(email) {
 }
 
 /**
+ * Helper to get the canonical redirect URL for auth confirmation
+ */
+export function getAuthRedirectUrl() {
+  if (typeof window !== 'undefined' && window.location.origin) {
+    return window.location.origin.replace(/\/$/, '');
+  }
+  return 'https://nutritionally-yours.vercel.app';
+}
+
+/**
  * Sign up with Email and Password
  */
 export async function signUpWithEmail(email, password, fullName = '') {
@@ -38,7 +48,7 @@ export async function signUpWithEmail(email, password, fullName = '') {
     email,
     password,
     options: {
-      emailRedirectTo: window.location.origin,
+      emailRedirectTo: getAuthRedirectUrl(),
       data: {
         full_name: fullName,
         name: fullName,
@@ -70,7 +80,7 @@ export async function sendVerificationLink(email) {
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: window.location.origin,
+      emailRedirectTo: getAuthRedirectUrl(),
     },
   });
   if (error) throw error;

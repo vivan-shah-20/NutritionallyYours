@@ -516,9 +516,95 @@ function handleAuthState(session) {
   }
 }
 
+// Toast Notification System
+function showToast(message, type = 'info', durationMs = 6000) {
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast-notification ${type}`;
+
+  const icon = type === 'success' ? '✓' : type === 'error' ? '!' : 'ℹ';
+  toast.innerHTML = `
+    <span style="font-weight:700;font-size:1rem;">${icon}</span>
+    <span style="flex:1;">${message}</span>
+    <button type="button" class="toast-close-btn" aria-label="Close notification">&times;</button>
+  `;
+
+  const closeBtn = toast.querySelector('.toast-close-btn');
+  const removeToast = () => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(-12px) scale(0.95)';
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', removeToast);
+  container.appendChild(toast);
+
+  if (durationMs > 0) {
+    setTimeout(removeToast, durationMs);
+  }
+}
+
+// Handle Verification, Error, and Token Redirects from Email confirmation or OAuth
+function handleAuthUrlRedirects() {
+  const hash = window.location.hash.startsWith('#') ? window.location.hash.substring(1) : '';
+  const searchParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(hash);
+
+  // Check for error parameters (e.g. token expired, link already used)
+  const error = searchParams.get('error') || hashParams.get('error');
+  const errorCode = searchParams.get('error_code') || hashParams.get('error_code');
+  const errorDescription = searchParams.get('error_description') || hashParams.get('error_description');
+
+  if (error || errorCode || errorDescription) {
+    console.warn('Supabase auth redirect callback status:', { error, errorCode, errorDescription });
+    let friendlyMsg = 'The verification link is invalid or has expired.';
+    if (
+      (errorDescription && errorDescription.toLowerCase().includes('expired')) ||
+      (errorDescription && errorDescription.toLowerCase().includes('invalid')) ||
+      errorCode === 'otp_expired' ||
+      errorCode === '403'
+    ) {
+      friendlyMsg = 'This verification link has expired or has already been used. If your account is already active, please sign in below.';
+    }
+    showToast(friendlyMsg, 'error', 7000);
+    window.history.replaceState(null, '', window.location.pathname);
+    setTimeout(() => {
+      switchAuthMode('signin');
+      if (authModal) authModal.classList.add('open');
+      showAuthMessage(friendlyMsg, 'error');
+    }, 400);
+    return;
+  }
+
+  // Check for successful email verification or magic link redirect
+  const type = searchParams.get('type') || hashParams.get('type');
+  const hasAccessToken = hash.includes('access_token');
+  const hasCode = searchParams.has('code');
+
+  if (type === 'signup' || type === 'email_change' || (hasAccessToken && hash.includes('type=signup'))) {
+    showToast('✨ Email verified successfully! Welcome to Nutritionally Yours.', 'success', 6000);
+    window.history.replaceState(null, '', window.location.pathname);
+  } else if (hasAccessToken || hasCode) {
+    window.history.replaceState(null, '', window.location.pathname);
+  }
+}
+
 // Supabase Auth Listeners: Real-time sync and auto-restoration on load
 supabase.auth.onAuthStateChange((event, session) => {
   handleAuthState(session);
+  if (event === 'SIGNED_IN' && session?.user) {
+    const meta = session.user.user_metadata || {};
+    const name = meta.full_name || meta.name || session.user.email?.split('@')[0] || '';
+    if (window.location.hash.includes('access_token') || window.location.search.includes('code=')) {
+      showToast(`✨ Welcome, ${name || 'Client'}! You are successfully signed in.`, 'success', 5000);
+    }
+  }
   if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('type='))) {
     window.history.replaceState(null, '', window.location.pathname + window.location.search);
   }
@@ -530,6 +616,9 @@ supabase.auth.getSession().then(({ data }) => {
 }).catch((err) => {
   console.warn('Initial session check note:', err);
 });
+
+// Execute URL redirect check on initialization
+handleAuthUrlRedirects();
 
 // Logout handler
 if (navLogoutBtn) {
@@ -544,6 +633,7 @@ if (navLogoutBtn) {
     } finally {
       handleAuthState(null);
       navLogoutBtn.disabled = false;
+      showToast('You have been signed out.', 'info', 4000);
     }
   });
 }
@@ -742,6 +832,11 @@ if (emailAuthForm) {
           }
         });
         if (authMessageBox) authMessageBox.appendChild(resendBtn);
+      } else if (errorMsg.includes('rate limit') || err.status === 429) {
+        showAuthMessage(
+          'Email rate limit reached for the hour. Please disable "Confirm email" in Supabase Auth Settings (or wait a short while) to create accounts instantly.',
+          'error'
+        );
       } else {
         showAuthMessage(errorMsg, 'error');
       }

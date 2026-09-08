@@ -10,7 +10,7 @@ const router = Router();
  */
 router.get('/google/url', async (req, res, next) => {
   try {
-    const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+    const clientUrl = process.env.CLIENT_URL || req.headers.origin || 'https://nutritionally-yours.vercel.app';
     const redirectTo = req.query.redirectTo || `${clientUrl}/auth/callback`;
 
     const { data, error } = await supabase.auth.signInWithOAuth({
