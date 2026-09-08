@@ -1558,17 +1558,21 @@ body {
    MOBILE & TABLET PORTRAIT (<= 768px)
    ---------------------------------------------------- */
 @media (max-width: 768px) {
-  /* Warm Luxury Editorial Background */
+  /* Warm Luxury Editorial Cream/Beige Background matching font color palette */
   html, body {
-    background-color: #F7F4ED;
+    background-color: #EFE6D8;
+  }
+
+  .preloader {
+    background: #EFE6D8;
   }
 
   .scroll-showcase {
-    background-color: #F7F4ED;
+    background-color: #EFE6D8;
   }
 
   .canvas-sticky-wrap {
-    background-color: #F7F4ED;
+    background-color: #EFE6D8;
   }
 
   /* Soft Luxury Radial Glow behind Salad Bowl */
@@ -1580,12 +1584,12 @@ body {
     top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(235, 226, 208, 0.65) 0%, rgba(247, 244, 237, 0) 70%);
+    background: radial-gradient(circle, rgba(222, 206, 184, 0.7) 0%, rgba(239, 230, 216, 0) 70%);
     pointer-events: none;
     z-index: 1;
   }
 
-  /* Blend Salad Frame Seamlessly into Ivory Background & Erase Encoding Edge Artifact */
+  /* Blend Salad Frame Seamlessly into Warm Beige Background & Erase Encoding Edge Artifact */
   #animation-canvas {
     mix-blend-mode: multiply;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 1.8%, black 98.2%, transparent 100%);
@@ -1670,8 +1674,8 @@ body {
   .btn-login-nav {
     height: 42px;
     padding: 0 10px;
-    background: #F7F4ED;
-    border: 1px solid #DED6C8;
+    background: #FAF8F3;
+    border: 1px solid #D5CCA;
     border-radius: 12px;
     color: #10261C;
     font-family: var(--font-sans);
@@ -1695,15 +1699,15 @@ body {
 
   .btn-login-nav:active {
     transform: scale(0.97);
-    background: #EDE6DA;
+    background: #E8DFD1;
   }
 
   /* User Profile Pill when Logged In */
   .user-profile-pill {
     height: 42px;
     padding: 0 8px 0 5px;
-    background: #F7F4ED;
-    border: 1px solid #DED6C8;
+    background: #FAF8F3;
+    border: 1px solid #D5CCA;
     border-radius: 12px;
     gap: 5px;
   }
@@ -1993,6 +1997,18 @@ body {
     margin-bottom: 40px;
   }
 
+  .virtual-pill {
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(0.65rem, 2.3vw, 0.74rem);
+    letter-spacing: 0.5px;
+    padding: 6px 12px;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    line-height: 1.3;
+  }
+
   .section-title {
     font-size: clamp(1.9rem, 5.5vw, 2.5rem);
     margin-bottom: 10px;
@@ -2047,35 +2063,78 @@ body {
 
   /* Slot Card Selection */
   .slot-card-large {
-    padding: 26px 18px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 24px 16px;
+    overflow: hidden;
+  }
+
+  .slot-card-large .form-card-title {
+    font-size: clamp(1.16rem, 4.4vw, 1.38rem);
+    word-break: break-word;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .slot-date-picker-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     margin-bottom: 20px;
   }
 
   .slot-date-picker-wrap .input-group input[type="date"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     font-size: 16px !important;
     padding: 12px 14px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .slot-picker-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .slot-cards-grid {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
   .slot-select-card {
-    padding: 16px 18px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 15px 16px;
     border-radius: var(--radius-sm);
     min-height: 48px;
+    overflow: hidden;
+  }
+
+  .slot-card-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
   .slot-time-range {
-    font-size: 1.05rem;
+    font-size: clamp(0.96rem, 3.8vw, 1.05rem);
+    word-break: break-word;
   }
 
   .slot-format-note {
-    font-size: 0.78rem;
+    font-size: clamp(0.72rem, 2.6vw, 0.78rem);
+    word-break: break-word;
   }
 
   /* Submit Consultation */
