@@ -2554,8 +2554,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none;
-  z-index: 100000;
+  pointer-events: none !important;
+  z-index: 2147483647 !important; /* Highest 32-bit integer: always above all modals, overlays & popups */
   opacity: 0;
   will-change: transform;
 }
@@ -2565,6 +2565,8 @@ body {
   height: 8px;
   background: var(--cursor-color, #ab8652);
   border-radius: 50%;
+  pointer-events: none !important;
+  z-index: 2147483647 !important;
   transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
 }
 
@@ -2573,6 +2575,8 @@ body {
   height: 40px;
   border: 2px solid var(--cursor-color, #ab8652);
   border-radius: 50%;
+  pointer-events: none !important;
+  z-index: 2147483647 !important;
   transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               height 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -2580,7 +2584,7 @@ body {
               opacity 0.2s ease;
 }
 
-/* Hovering interactive links, buttons, form controls */
+/* Hovering interactive links, buttons, form controls & modal actions */
 .cursor-ring.cursor-hover {
   width: 52px;
   height: 52px;
@@ -2637,21 +2641,23 @@ body {
   cursor: none;
 }
 
-/* Hide native cursor on desktop fine pointers only */
+/* Hide native cursor globally on desktop fine pointers only */
 @media (pointer: fine) {
-  body {
-    cursor: none;
+  *, *::before, *::after {
+    cursor: none !important;
   }
-  a, button, [role="button"], input[type="submit"], input[type="button"], select, .slot-card, label {
-    cursor: none;
-  }
+
+  /* Keep native text selection caret only on text inputs and textareas */
   input[type="text"],
   input[type="email"],
   input[type="tel"],
   input[type="number"],
   input[type="password"],
-  textarea {
-    cursor: text;
+  input[type="search"],
+  input[type="url"],
+  textarea,
+  [contenteditable="true"] {
+    cursor: text !important;
   }
 }
 
@@ -2660,10 +2666,17 @@ body {
   .custom-cursor {
     display: none !important;
   }
-  body, a, button, input, select, textarea, [role="button"], .slot-card {
+  *, *::before, *::after {
     cursor: auto !important;
   }
+  a, button, [role="button"], input[type="submit"], input[type="button"], select, .slot-card, label {
+    cursor: pointer !important;
+  }
+  input, textarea {
+    cursor: text !important;
+  }
 }
+
 
 
 

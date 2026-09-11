@@ -909,7 +909,7 @@ if (consultationForm) {
           if (!res.ok) {
             if (res.status === 409) {
               confirmationModal.classList.remove('open');
-              alert('This time slot is already booked for this date. Please choose another window.');
+              showToast('This time slot is already booked for this date. Please choose another window.', 'error');
               updateSlotAvailability(consultDate);
               return;
             }
@@ -934,7 +934,7 @@ if (consultationForm) {
 
         if (existingConflict) {
           confirmationModal.classList.remove('open');
-          alert('This time slot is already booked for this date. Please choose another window.');
+          showToast('This time slot is already booked for this date. Please choose another window.', 'error');
           updateSlotAvailability(consultDate);
           return;
         }
@@ -1025,68 +1025,74 @@ function initCustomCursor() {
   let dotX = -100, dotY = -100;
   let isVisible = false;
 
+  const showCursor = () => {
+    isVisible = true;
+    cursorDot.style.opacity = '1';
+    cursorRing.style.opacity = '1';
+  };
+
+  const hideCursor = () => {
+    isVisible = false;
+    cursorDot.style.opacity = '0';
+    cursorRing.style.opacity = '0';
+  };
+
+  // Capture phase ensures we track mousemove even if a modal or popup calls stopPropagation
   window.addEventListener('mousemove', (e) => {
     dotX = e.clientX;
     dotY = e.clientY;
 
     if (!isVisible) {
-      isVisible = true;
       ringX = dotX;
       ringY = dotY;
-      cursorDot.style.opacity = '1';
-      cursorRing.style.opacity = '1';
+      showCursor();
     }
 
     cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-  }, { passive: true });
+  }, { passive: true, capture: true });
 
-  document.addEventListener('mouseleave', () => {
-    cursorDot.style.opacity = '0';
-    cursorRing.style.opacity = '0';
-    isVisible = false;
-  });
+  // Handle window boundary & tab blur/focus transitions
+  document.addEventListener('mouseleave', hideCursor);
+  document.addEventListener('mouseenter', showCursor);
+  window.addEventListener('blur', hideCursor);
+  window.addEventListener('focus', showCursor);
 
-  document.addEventListener('mouseenter', () => {
-    if (isVisible) {
-      cursorDot.style.opacity = '1';
-      cursorRing.style.opacity = '1';
-    }
-  });
+  // Target helpers for text fields and interactive elements (including popups, modals, toasts)
+  const isTextInput = (el) => !!el?.closest('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], input[type="search"], input[type="url"], textarea, [contenteditable="true"]');
+  const isInteractive = (el) => !!el?.closest('a, button, [role="button"], .slot-card, .slot-select-card, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], select, label, .modal-close-icon, .toast-close-btn, .auth-tab, .btn-auth-submit, .btn-password-toggle, .btn-close-receipt, .btn-login-nav, .btn-logout, .tab-pill, [tabindex]:not([tabindex="-1"])');
 
-  // Interactive Hover Expansions for links, buttons, form elements
+  // Interactive Hover Expansions using capture phase to cover all popups and dynamic elements
   document.addEventListener('mouseover', (e) => {
-    const textInput = e.target.closest('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], textarea');
-    if (textInput) {
+    const target = e.target;
+    if (isTextInput(target)) {
       cursorRing.classList.add('cursor-text-input');
       return;
     }
 
-    const interactive = e.target.closest('a, button, [role="button"], .slot-card, input[type="submit"], input[type="button"], select, label');
-    if (interactive) {
+    if (isInteractive(target)) {
       cursorRing.classList.add('cursor-hover');
     }
-  });
+  }, { passive: true, capture: true });
 
   document.addEventListener('mouseout', (e) => {
-    const textInput = e.target.closest('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], textarea');
-    if (textInput) {
+    const target = e.target;
+    if (isTextInput(target)) {
       cursorRing.classList.remove('cursor-text-input');
     }
 
-    const interactive = e.target.closest('a, button, [role="button"], .slot-card, input[type="submit"], input[type="button"], select, label');
-    if (interactive) {
+    if (isInteractive(target)) {
       cursorRing.classList.remove('cursor-hover');
     }
-  });
+  }, { passive: true, capture: true });
 
   // Tactile Click Feedback
-  document.addEventListener('mousedown', () => {
+  window.addEventListener('mousedown', () => {
     cursorRing.classList.add('cursor-clicking');
-  });
+  }, { passive: true, capture: true });
 
-  document.addEventListener('mouseup', () => {
+  window.addEventListener('mouseup', () => {
     cursorRing.classList.remove('cursor-clicking');
-  });
+  }, { passive: true, capture: true });
 
   // Smooth Ring Follower Animation Loop (0.15 LERP)
   function animateRing() {
@@ -1097,5 +1103,6 @@ function initCustomCursor() {
   }
   requestAnimationFrame(animateRing);
 }
+
 
 
