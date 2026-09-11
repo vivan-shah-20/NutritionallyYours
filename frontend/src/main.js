@@ -1008,4 +1008,94 @@ setupDatePicker();
 setupSlotCardSelection();
 preloadImages();
 animationLoop();
+initCustomCursor();
+
+// Site-Wide Custom Cursor (Dot + Ring Follower)
+function initCustomCursor() {
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  if (!cursorDot || !cursorRing) return;
+
+  // Don't initialize on touch/coarse pointer devices
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+    return;
+  }
+
+  let ringX = -100, ringY = -100;
+  let dotX = -100, dotY = -100;
+  let isVisible = false;
+
+  window.addEventListener('mousemove', (e) => {
+    dotX = e.clientX;
+    dotY = e.clientY;
+
+    if (!isVisible) {
+      isVisible = true;
+      ringX = dotX;
+      ringY = dotY;
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
+    }
+
+    cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => {
+    cursorDot.style.opacity = '0';
+    cursorRing.style.opacity = '0';
+    isVisible = false;
+  });
+
+  document.addEventListener('mouseenter', () => {
+    if (isVisible) {
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
+    }
+  });
+
+  // Interactive Hover Expansions for links, buttons, form elements
+  document.addEventListener('mouseover', (e) => {
+    const textInput = e.target.closest('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], textarea');
+    if (textInput) {
+      cursorRing.classList.add('cursor-text-input');
+      return;
+    }
+
+    const interactive = e.target.closest('a, button, [role="button"], .slot-card, input[type="submit"], input[type="button"], select, label');
+    if (interactive) {
+      cursorRing.classList.add('cursor-hover');
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    const textInput = e.target.closest('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], textarea');
+    if (textInput) {
+      cursorRing.classList.remove('cursor-text-input');
+    }
+
+    const interactive = e.target.closest('a, button, [role="button"], .slot-card, input[type="submit"], input[type="button"], select, label');
+    if (interactive) {
+      cursorRing.classList.remove('cursor-hover');
+    }
+  });
+
+  // Tactile Click Feedback
+  document.addEventListener('mousedown', () => {
+    cursorRing.classList.add('cursor-clicking');
+  });
+
+  document.addEventListener('mouseup', () => {
+    cursorRing.classList.remove('cursor-clicking');
+  });
+
+  // Smooth Ring Follower Animation Loop (0.15 LERP)
+  function animateRing() {
+    ringX += (dotX - ringX) * 0.15;
+    ringY += (dotY - ringY) * 0.15;
+    cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(animateRing);
+  }
+  requestAnimationFrame(animateRing);
+}
+
 
